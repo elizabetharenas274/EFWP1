@@ -1,0 +1,54 @@
+@model EFWP1.Models.Category
+
+@{
+    ViewData["Title"] = "Detalles de categoría";
+}
+
+<h1>Detalles de categoría</h1>
+
+<div>
+    <h4>Categoría</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <h4>Productos asociados (@Model.Products.Count)</h4>
+    @if (Model.Products.Count == 0)
+    {
+        <p>Esta categoría no tiene productos asociados.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">Detalles</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CategoryId">Editar</a> |
+    <a asp-action="Index">Volver al listado</a>
+</div>

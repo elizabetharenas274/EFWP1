@@ -1,0 +1,51 @@
+@model IEnumerable<EFWP1.Models.Category>
+
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<h1>Categorías</h1>
+
+@if (TempData["ErrorMessage"] is string errorMessage)
+{
+    <div class="alert alert-danger" role="alert">
+        @errorMessage
+    </div>
+}
+
+@if (TempData["SuccessMessage"] is string successMessage)
+{
+    <div class="alert alert-success" role="alert">
+        @successMessage
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Crear nueva categoría</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Productos asociados</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                    @item.Products.Count
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoryId">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

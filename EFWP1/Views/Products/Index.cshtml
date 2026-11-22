@@ -1,0 +1,41 @@
+@model IEnumerable<EFWP1.Models.Product>
+
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<h1>Productos</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo producto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Price)
+            </td>
+            <td>
+                @(item.Category?.Name ?? "Sin categoría")
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

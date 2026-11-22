@@ -1,0 +1,40 @@
+@model EFWP1.Models.Category
+
+@{
+    ViewData["Title"] = "Eliminar categoría";
+}
+
+<h1>Eliminar categoría</h1>
+
+<h3>¿Está seguro de que desea eliminar esta categoría?</h3>
+<div>
+    <h4>Categoría</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Nombre
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Productos asociados
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Products.Count
+        </dd>
+    </dl>
+    @if (Model.Products.Count > 0)
+    {
+        <div class="alert alert-warning" role="alert">
+            Esta categoría tiene productos asociados y no puede eliminarse. Cambie o elimine primero esos productos.
+        </div>
+    }
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoryId" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" disabled="@(Model.Products.Count > 0)" /> |
+        <a asp-action="Index">Volver al listado</a>
+    </form>
+</div>
